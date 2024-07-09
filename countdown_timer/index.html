@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown Timer</title>
+    <title>Configurable Countdown Timer</title>
     <style>
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -19,10 +20,95 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input, select {
+            margin: 5px;
+            padding: 10px;
+            font-size: 1rem;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
+    <form id="countdownForm">
+        <label for="date">Date:</label>
+        <input type="date" id="date" required>
+        
+        <label for="time">Time:</label>
+        <input type="time" id="time" required>
+        
+        <label for="timezone">Timezone:</label>
+        <select id="timezone" required>
+            <option value="-12:00">UTC-12:00</option>
+            <option value="-11:30">UTC-11:30</option>
+            <option value="-11:00">UTC-11:00</option>
+            <option value="-10:30">UTC-10:30</option>
+            <option value="-10:00">UTC-10:00</option>
+            <option value="-09:30">UTC-09:30</option>
+            <option value="-09:00">UTC-09:00</option>
+            <option value="-08:30">UTC-08:30</option>
+            <option value="-08:00">UTC-08:00</option>
+            <option value="-07:30">UTC-07:30</option>
+            <option value="-07:00">UTC-07:00</option>
+            <option value="-06:30">UTC-06:30</option>
+            <option value="-06:00">UTC-06:00</option>
+            <option value="-05:30">UTC-05:30</option>
+            <option value="-05:00">UTC-05:00</option>
+            <option value="-04:30">UTC-04:30</option>
+            <option value="-04:00">UTC-04:00</option>
+            <option value="-03:30">UTC-03:30</option>
+            <option value="-03:00">UTC-03:00</option>
+            <option value="-02:30">UTC-02:30</option>
+            <option value="-02:00">UTC-02:00</option>
+            <option value="-01:30">UTC-01:30</option>
+            <option value="-01:00">UTC-01:00</option>
+            <option value="-00:30">UTC-00:30</option>
+            <option value="+00:00" selected>UTC+00:00</option>
+            <option value="+00:30">UTC+00:30</option>
+            <option value="+01:00">UTC+01:00</option>
+            <option value="+01:30">UTC+01:30</option>
+            <option value="+02:00">UTC+02:00</option>
+            <option value="+02:30">UTC+02:30</option>
+            <option value="+03:00">UTC+03:00</option>
+            <option value="+03:30">UTC+03:30</option>
+            <option value="+04:00">UTC+04:00</option>
+            <option value="+04:30">UTC+04:30</option>
+            <option value="+05:00">UTC+05:00</option>
+            <option value="+05:30">UTC+05:30</option>
+            <option value="+06:00">UTC+06:00</option>
+            <option value="+06:30">UTC+06:30</option>
+            <option value="+07:00">UTC+07:00</option>
+            <option value="+07:30">UTC+07:30</option>
+            <option value="+08:00">UTC+08:00</option>
+            <option value="+08:30">UTC+08:30</option>
+            <option value="+09:00">UTC+09:00</option>
+            <option value="+09:30">UTC+09:30</option>
+            <option value="+10:00">UTC+10:00</option>
+            <option value="+10:30">UTC+10:30</option>
+            <option value="+11:00">UTC+11:00</option>
+            <option value="+11:30">UTC+11:30</option>
+            <option value="+12:00">UTC+12:00</option>
+        </select>
+        
+        <button type="submit">Start Countdown</button>
+    </form>
     <div id="timer">00:00:00</div>
     <script src="script.js"></script>
 </body>
