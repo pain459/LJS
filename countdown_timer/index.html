@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Configurable Countdown Timer</title>
+    <title>Modern Countdown Timer</title>
     <style>
         body {
             display: flex;
@@ -11,38 +11,74 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f0f0f0;
+            background-color: #121212;
+            color: #ffffff;
             font-family: Arial, sans-serif;
         }
         #timer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             font-size: 3rem;
-            background-color: #fff;
+            background-color: #1f1f1f;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .tile {
+            width: 2ch;
+            height: 3rem;
+            display: inline-block;
+            position: relative;
+            perspective: 1000px;
+        }
+        .tile .front,
+        .tile .back {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            transition: transform 0.6s cubic-bezier(0.5, 0, 0.5, 1);
+        }
+        .tile .front {
+            transform: rotateX(0deg);
+        }
+        .tile .back {
+            transform: rotateX(-180deg);
+        }
+        .tile.flipped .front {
+            transform: rotateX(180deg);
+        }
+        .tile.flipped .back {
+            transform: rotateX(0deg);
         }
         form {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-        input, select {
+        input, select, button {
             margin: 5px;
             padding: 10px;
             font-size: 1rem;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 1rem;
-            background-color: #007bff;
-            color: white;
-            border: none;
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #444;
             border-radius: 5px;
-            cursor: pointer;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #555;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .controls button {
+            margin: 0 10px;
         }
     </style>
 </head>
@@ -92,6 +128,7 @@
             <option value="+04:30">UTC+04:30</option>
             <option value="+05:00">UTC+05:00</option>
             <option value="+05:30">UTC+05:30</option>
+            <option value="+05:45">UTC+05:45</option>
             <option value="+06:00">UTC+06:00</option>
             <option value="+06:30">UTC+06:30</option>
             <option value="+07:00">UTC+07:00</option>
@@ -110,6 +147,13 @@
         <button type="submit">Start Countdown</button>
     </form>
     <div id="timer">00:00:00</div>
+    <div class="controls">
+        <button id="resetButton">Reset</button>
+        <button class="adjustButton" data-minutes="1">+1 min</button>
+        <button class="adjustButton" data-minutes="2">+2 min</button>
+        <button class="adjustButton" data-minutes="5">+5 min</button>
+        <button class="adjustButton" data-minutes="10">+10 min</button>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
