@@ -12,6 +12,9 @@ function initializeTimer() {
         <span>:</span>
         <div class="tile"><div class="front">0</div><div class="back">0</div></div>
         <div class="tile"><div class="front">0</div><div class="back">0</div></div>
+        <span>:</span>
+        <div class="tile"><div class="front">0</div><div class="back">0</div></div>
+        <div class="tile"><div class="front">0</div><div class="back">0</div></div>
     `;
 }
 
