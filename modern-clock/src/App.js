@@ -9,8 +9,9 @@ function App() {
   const [timezone, setTimezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
   const [alarms, setAlarms] = useState([]);
   const [alarmTime, setAlarmTime] = useState('');
-  const [timer, setTimer] = useState(0);
+  const [timer, setTimer] = useState('');
   const [timerRunning, setTimerRunning] = useState(false);
+  const [remainingTime, setRemainingTime] = useState(null);
 
   useEffect(() => {
     const timerId = setInterval(() => {
@@ -20,16 +21,18 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (timerRunning && timer > 0) {
-      const timerId = setInterval(() => {
-        setTimer(prev => prev - 1);
+    let interval;
+    if (timerRunning && remainingTime > 0) {
+      interval = setInterval(() => {
+        setRemainingTime(prev => prev - 1);
       }, 1000);
-      return () => clearInterval(timerId);
-    } else if (timer === 0) {
+    } else if (remainingTime === 0) {
       setTimerRunning(false);
+      setRemainingTime(null);
       alert('Timer finished!');
     }
-  }, [timerRunning, timer]);
+    return () => clearInterval(interval);
+  }, [timerRunning, remainingTime]);
 
   const toggleTheme = () => {
     setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
@@ -43,9 +46,18 @@ function App() {
   };
 
   const startTimer = () => {
-    if (timer > 0) {
+    const timeInSeconds = parseInt(timer, 10);
+    if (timeInSeconds > 0 && timeInSeconds <= 3600) {
+      setRemainingTime(timeInSeconds);
       setTimerRunning(true);
+      setTimer('');
     }
+  };
+
+  const clearTimer = () => {
+    setTimer('');
+    setTimerRunning(false);
+    setRemainingTime(null);
   };
 
   const { opacity } = useSpring({
@@ -90,9 +102,20 @@ function App() {
         <input
           type="number"
           value={timer}
-          onChange={e => setTimer(parseInt(e.target.value))}
+          onChange={e => {
+            const value = parseInt(e.target.value, 10);
+            if (!isNaN(value) && value <= 3600) setTimer(e.target.value);
+          }}
+          max="3600"
+          placeholder="Enter seconds (max 3600)"
         />
         <button onClick={startTimer}>Start Timer</button>
+        <button onClick={clearTimer}>Clear Timer</button>
+        {remainingTime !== null && (
+          <div>
+            Time remaining: {Math.floor(remainingTime / 60)}:{String(remainingTime % 60).padStart(2, '0')}
+          </div>
+        )}
       </div>
     </animated.div>
   );
